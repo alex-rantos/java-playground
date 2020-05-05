@@ -57,4 +57,20 @@ public class Solutions {
         return new int[]{-1,-1};        
     }
 
+    /* Given a string, find the length of the longest substring without repeating characters. */
+    public int lengthOfLongestSubstring(String s) {
+        int max = 0, begin = 0;
+        HashMap<Character,Integer> map = new HashMap<Character,Integer>();
+        
+        for (int i = 1; i <= s.length(); i++) {
+            if (map.containsKey(s.charAt(i - 1))) {
+                begin = Math.max(map.get(s.charAt(i - 1)),begin);
+            }
+            max = max >= (i - begin) ? max : (i - begin);
+            map.put(s.charAt(i - 1), i);
+        }
+        return max;
+        
+    }
+
 }
