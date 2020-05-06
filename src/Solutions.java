@@ -73,4 +73,27 @@ public class Solutions {
         
     }
 
+    /*Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
+
+    You may assume that the array is non-empty and the majority element always exist in the array.*/
+    public int majorityElement(int[] nums) {
+        HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+        int max = 0, ans = 0;
+        for(int num: nums) {
+            if(map.containsKey(num)) {
+                map.merge(num, 1, Integer::sum);
+                if (map.get(num) > max) {
+                    ans = num;
+                    max = map.get(num);
+                }
+            } else {
+                map.put(num,1);
+                if (max == 0) {
+                    max = 1;
+                    ans = num;
+                }
+            }
+        }
+       return ans; 
+    }
 }

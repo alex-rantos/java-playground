@@ -49,4 +49,11 @@ public class SolutionsTest {
         assertEquals(2, sol.lengthOfLongestSubstring("abba"),"abba");
     }
 
+    @Test
+    public void majorityElementTest() {
+        assertEquals(3, sol.majorityElement(new int[]{3,2,3}));
+        assertEquals(2, sol.majorityElement(new int[]{2,2,1,1,1,2,2}));
+        assertEquals(1, sol.majorityElement(new int[]{1}));
+    }
+
 }
