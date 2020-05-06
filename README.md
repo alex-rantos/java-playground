@@ -9,4 +9,4 @@ Solving problems from various online resources.
 
 ## JUnit5
 
-JUnit 5 can be installed in VSCode as explained in [this post](https://stackoverflow.com/questions/60961140/how-i-can-install-junit-5-on-vscode/61613395#61613395).
+JUnit 5 can be installed in VSCode as I have explained in [this post](https://stackoverflow.com/questions/60961140/how-i-can-install-junit-5-on-vscode/61613395#61613395).
