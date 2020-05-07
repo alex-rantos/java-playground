@@ -3,6 +3,8 @@ package src;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import src.dataStructures.TreeNode;
+
 public class Solutions {
 
     public static void main(String[] args) {
@@ -95,5 +97,50 @@ public class Solutions {
             }
         }
        return ans; 
+    }
+
+    /*
+    In a binary tree, the root node is at depth 0, and children of each depth k node are at depth k+1.
+    Two nodes of a binary tree are cousins if they have the same depth, but have different parents.
+    We are given the root of a binary tree with unique values, and the values x and y of two different nodes in the tree.
+    Return true if and only if the nodes corresponding to the values x and y are cousins
+    */
+
+    private int depth = -1;
+    private boolean ans = false;
+    private TreeNode parent = null;
+    
+    public void validateNode(TreeNode parent,int depth) {
+        if (this.depth == depth && parent != this.parent) {
+            ans = true;
+            return;
+        }else if (this.depth == -1) {
+            this.depth = depth;
+            this.parent = parent;
+        } 
+    }
+    
+    public void searchTree(TreeNode parent, TreeNode node, int x, int y, int depth) {
+        if (node.getVal() == x) {
+            validateNode(parent,depth);
+            return;
+        } else if (node.getVal() == y) {
+            validateNode(parent,depth);
+            return;
+        }
+        
+        if (node.getLeft() != null) {
+            searchTree(node,node.getLeft(),x,y,depth+1);
+        }
+        if (node.getRight() != null) {
+            searchTree(node,node.getRight(),x,y,depth+1);
+        }
+    }
+    
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if (root == null) return false;
+        if (root.getVal() == x || root.getVal() == y) return false;
+        searchTree(null,root,x,y,0);
+        return this.ans;
     }
 }
