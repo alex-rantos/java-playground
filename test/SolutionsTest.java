@@ -56,4 +56,15 @@ public class SolutionsTest {
         assertEquals(1, sol.majorityElement(new int[]{1}));
     }
 
+    @Test
+    public void isPerfectSquareTest() {
+        assertEquals(true, sol.isPerfectSquare(25));
+        assertEquals(true, sol.isPerfectSquare(2));
+        assertEquals(true, sol.isPerfectSquare(0));
+        assertEquals(true, sol.isPerfectSquare(1));
+        assertEquals(false, sol.isPerfectSquare(3));
+        assertEquals(true, sol.isPerfectSquare(46340*46340));
+        assertEquals(false, sol.isPerfectSquare(90));
+    }
+
 }

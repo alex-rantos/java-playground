@@ -10,7 +10,7 @@ public class Solutions {
     public static void main(String[] args) {
         
     }
-    /* Given a string, find the first non-repeating character in it and return it's index. If it doesn't exist, return -1. */
+    /** Given a string, find the first non-repeating character in it and return it's index. If it doesn't exist, return -1. */
     public int firstUniqChar(String s) {
         int len = s.length();
         if (len <= 0) return -1;
@@ -44,7 +44,7 @@ public class Solutions {
         return res == Integer.MAX_VALUE ? -1 : res;
     }
 
-    /* Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+    /** Given an array of integers, return indices of the two numbers such that they add up to a specific target.
     You may assume that each input would have exactly one solution, and you may not use the same element twice.*/
     public int[] twoSum(int[] nums, int target) {
         HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
@@ -59,7 +59,7 @@ public class Solutions {
         return new int[]{-1,-1};        
     }
 
-    /* Given a string, find the length of the longest substring without repeating characters. */
+    /** Given a string, find the length of the longest substring without repeating characters. */
     public int lengthOfLongestSubstring(String s) {
         int max = 0, begin = 0;
         HashMap<Character,Integer> map = new HashMap<Character,Integer>();
@@ -75,7 +75,7 @@ public class Solutions {
         
     }
 
-    /*Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
+    /**Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
 
     You may assume that the array is non-empty and the majority element always exist in the array.*/
     public int majorityElement(int[] nums) {
@@ -99,7 +99,7 @@ public class Solutions {
        return ans; 
     }
 
-    /*
+    /**
     In a binary tree, the root node is at depth 0, and children of each depth k node are at depth k+1.
     Two nodes of a binary tree are cousins if they have the same depth, but have different parents.
     We are given the root of a binary tree with unique values, and the values x and y of two different nodes in the tree.
@@ -142,5 +142,23 @@ public class Solutions {
         if (root.getVal() == x || root.getVal() == y) return false;
         searchTree(null,root,x,y,0);
         return this.ans;
+    }
+
+    /** 
+    Given a positive integer num, write a function which returns True if num is a perfect square else False.
+    
+    Note: Do not use any built-in library function such as sqrt.
+    */
+    public boolean isPerfectSquare(int num) {
+        if (num == 0 || num == 1 || num == 2) return true;
+        int low, high = (int) num/2;
+        while (high > num / high) high = (int) high/2;
+        low = high;
+        high = high*high;
+        for (int i=low; i<high; i++) {
+            if (num == i*i) return true;
+            else if (i*i > num) return false;
+        }
+        return false;
     }
 }
