@@ -1,6 +1,7 @@
 package src;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 import src.dataStructures.TreeNode;
@@ -161,4 +162,50 @@ public class Solutions {
         }
         return false;
     }
+
+    /**
+     * In a town, there are N people labelled from 1 to N.  There is a rumor that one of these people is secretly the town judge.
+        If the town judge exists, then:
+        The town judge trusts nobody.
+        Everybody (except for the town judge) trusts the town judge.
+        There is exactly one person that satisfies properties 1 and 2.
+        You are given trust, an array of pairs trust[i] = [a, b] representing that the person labelled a trusts the person labelled b.
+
+        If the town judge exists and can be identified, return the label of the town judge.  Otherwise, return -1.
+     */ 
+    public int findJudge(int N, int[][] trust) {
+        System.out.println(trust.length);
+        if (trust.length == 0) {
+            if (N == 1) return 1;
+            else return -1;
+        }
+
+        int judge = -1, maxVotes = 0;
+        int[] a = new int[N];
+        HashMap<Integer,Integer> map = new HashMap();
+        for (int i = 0; i < trust.length; i++) {
+            if (map.containsKey(trust[i][1])) {
+                int votes = map.get(trust[i][1]) + 1;
+                map.put(trust[i][1], votes);
+                if (votes > maxVotes) {
+                    judge = trust[i][1];
+                    maxVotes = votes;
+                }
+            } else {
+                map.put(trust[i][1], 1);
+                if (1 > maxVotes) {
+                    judge = trust[i][1];
+                    maxVotes = Math.max(1, maxVotes);
+                }
+            }
+            a[trust[i][0]-1] = -1; // has voted
+        }
+        System.out.println(judge);
+        for (int i = 0; i < N; i++) {
+                System.out.println(i + " : " + a[i]);
+            }
+        System.out.println(map);
+        if (a[judge-1] == 0 && map.get(judge) == N - 1) return judge;
+        else return -1;
+    }    
 }

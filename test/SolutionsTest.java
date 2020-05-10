@@ -67,4 +67,16 @@ public class SolutionsTest {
         assertEquals(false, sol.isPerfectSquare(90));
     }
 
+    @Test
+    public void findJudgeTest() {
+        assertEquals(-1, sol.findJudge(4,new int[][]{}));
+        assertEquals(1, sol.findJudge(1,new int[][]{}));
+        assertEquals(2, sol.findJudge(2,new int[][]{{1,2}}));
+        assertEquals(3, sol.findJudge(3,new int[][]{{1,3},{2,3}}));
+        assertEquals(-1, sol.findJudge(3,new int[][]{{1,3},{2,3},{3,1}}));
+        assertEquals(-1, sol.findJudge(3,new int[][]{{1,2},{2,3}}));
+        assertEquals(3, sol.findJudge(4,new int[][]{{1,3},{1,4},{2,3},{2,4},{4,3}}));
+        assertEquals(-1, sol.findJudge(4,new int[][]{{1,2},{3,2},{1,3},{4,1},{2,1},{2,3},{4,2},{3,4},{2,4}}));  
+    }
+
 }
