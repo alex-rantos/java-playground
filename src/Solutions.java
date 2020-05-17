@@ -1,8 +1,9 @@
 package src;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import src.dataStructures.TreeNode;
 
@@ -182,7 +183,7 @@ public class Solutions {
 
         int judge = -1, maxVotes = 0;
         int[] a = new int[N];
-        HashMap<Integer,Integer> map = new HashMap();
+        HashMap<Integer,Integer> map = new HashMap<>();
         for (int i = 0; i < trust.length; i++) {
             if (map.containsKey(trust[i][1])) {
                 int votes = map.get(trust[i][1]) + 1;
@@ -207,5 +208,77 @@ public class Solutions {
         System.out.println(map);
         if (a[judge-1] == 0 && map.get(judge) == N - 1) return judge;
         else return -1;
-    }    
+    }   
+    
+    /*
+    Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
+
+    Strings consists of lowercase English letters only and the length of both strings s and p will not be larger than 20,100.
+    */
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> res = new ArrayList<>();
+        if (s.length() == 0 || s == null) return res;
+        HashMap<Character,Integer> orig = new HashMap<>();
+        for (char c: p.toCharArray()){
+            if (orig.containsKey(c)) {
+                orig.put(c, orig.get(c)+1);
+            } else {
+                orig.put(c, 1);
+            }
+        }
+        HashMap<Character,Integer> temp = new HashMap<>();
+        System.out.println(orig.toString());
+        MyInteger added = new MyInteger(0);
+        MyBoolean add = new MyBoolean(false);
+        int i = 0;
+        while (i < s.length()) {
+            if (!orig.containsKey(s.charAt(i))) {
+                this.findAnagramsHelper(temp, res, added, add, true);
+                i++;
+                continue;
+            } else {
+                if (add.getVal() == false) {
+                    res.add(i);
+                    add.setVal(true);
+                }
+                if (temp.containsKey(s.charAt(i))) {
+                    int occ = temp.get(s.charAt(i)) + 1;
+                    temp.put(s.charAt(i),occ);
+                    if (occ > orig.get(s.charAt(i))) {
+                        if (res.size() > 0) {
+                            i = res.get(res.size()-1) + 1;
+                        }
+                        this.findAnagramsHelper(temp, res, added, add, true);
+                        continue;
+                    }
+                } else {
+                    temp.put(s.charAt(i), 1);
+                }
+                added.increment();
+            }
+            if (added.getVal() == p.length()) {
+                if (orig.equals(temp)) {
+                    i = res.get(res.size()-1) + 1;                        
+                    this.findAnagramsHelper(temp, res, added, add, false);
+                    continue;
+                }
+            }
+            i+=1;
+        }
+        if (add.getVal() == true && !temp.equals(orig)) {
+            res.remove(res.size() - 1);
+        }
+        return res;
+    }
+
+    public void findAnagramsHelper(HashMap<Character,Integer> temp,List<Integer> ans, MyInteger added, MyBoolean add, Boolean everything) {
+        if (everything){
+            if (add.getVal()) {
+                ans.remove(ans.size() - 1);
+            }
+        }
+        add.setVal(false);;
+        temp.clear();
+        added.setVal(0);
+    }
 }

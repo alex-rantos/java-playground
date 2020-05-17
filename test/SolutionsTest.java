@@ -1,9 +1,13 @@
 package test;
+
 import src.Solutions;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.AfterAll;
 
@@ -77,6 +81,12 @@ public class SolutionsTest {
         assertEquals(-1, sol.findJudge(3,new int[][]{{1,2},{2,3}}));
         assertEquals(3, sol.findJudge(4,new int[][]{{1,3},{1,4},{2,3},{2,4},{4,3}}));
         assertEquals(-1, sol.findJudge(4,new int[][]{{1,2},{3,2},{1,3},{4,1},{2,1},{2,3},{4,2},{3,4},{2,4}}));  
+    }
+
+    @Test
+    public void findAnagramsTest() {
+        assertEquals(new ArrayList<Integer>(Arrays.asList(0,1,2)), sol.findAnagrams("abab","ab"));
+        assertEquals(new ArrayList<Integer>(Arrays.asList(0,6)), sol.findAnagrams("cbaebabacd","abc"));
     }
 
 }
