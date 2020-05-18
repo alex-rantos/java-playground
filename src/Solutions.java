@@ -281,4 +281,53 @@ public class Solutions {
         temp.clear();
         added.setVal(0);
     }
+
+    /*
+    Given two strings s1 and s2, write a function to return true if s2 contains the permutation of s1. 
+    In other words, one of the first string's permutations is the substring of the second string.
+    */
+    public boolean checkInclusion(String s1, String s2) {
+        if (s1.length()==0) return true;
+        HashMap<Character,Integer> orig = new HashMap<>();
+        for (char c: s1.toCharArray()){
+            if (orig.containsKey(c)) {
+                orig.put(c, orig.get(c)+1);
+            } else {
+                orig.put(c, 1);
+            }
+        }
+        HashMap<Character,Integer> temp = new HashMap<>();
+        int i = 0, added = 0, val, start = 0;
+        while (i < s2.length()) {
+            if (!orig.containsKey(s2.charAt(i))) {
+                i++;
+                if (added > 0) {
+                    temp.clear();
+                    added = 0;
+                    i = start+1;
+                }
+                continue;
+            } else {
+                added++;
+                if (added == 1) start = i;
+                if (temp.containsKey(s2.charAt(i))) {
+                    val = temp.get(s2.charAt(i))+1;
+                    if (orig.get(s2.charAt(i)) < val) {
+                        temp.clear();
+                        added = 0;
+                        i = start+1;
+                        continue;
+                    }
+                    temp.put(s2.charAt(i),val);
+                } else {
+                    temp.put(s2.charAt(i),1);
+                }
+                if (added == s1.length() && temp.equals(orig)) {
+                    return true;
+                }
+            }
+            i+=1;
+        }
+        return false;
+    }
 }

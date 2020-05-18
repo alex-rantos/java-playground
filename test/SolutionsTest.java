@@ -89,4 +89,11 @@ public class SolutionsTest {
         assertEquals(new ArrayList<Integer>(Arrays.asList(0,6)), sol.findAnagrams("cbaebabacd","abc"));
     }
 
+    @Test
+    public void checkInclusionTest() {
+        assertEquals(true, sol.checkInclusion("","ab"));
+        assertEquals(true, sol.checkInclusion("ab","adba"));
+        assertEquals(false, sol.checkInclusion("abc","afdgtcb"));
+    }
+
 }
